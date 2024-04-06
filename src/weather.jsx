@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { Link } from 'react-router-dom';
 
 function WeatherDashboard() {
     const [cities, setCities] = useState(['Raleigh']); // Initialize with one city
@@ -11,12 +13,11 @@ function WeatherDashboard() {
     useEffect(() => {
       const fetchWeatherData = async () => {
         setIsLoading(true);
-        setWeatherData([]); // Reset weather data
+        setWeatherData([]);
         setError(null);
   
         for (const city of cities) {
-          const apiKey = import.meta.env.VITE_APP_WEATHERBIT_API_KEY;
-          const url = `https://api.weatherbit.io/v2.0/current?city=${city}&key=${apiKey}`;
+          const url = `https://api.weatherbit.io/v2.0/current?city=${city}&key=b5850aedd55841f99c23f98513ddba40`;
   
           try {
             const response = await fetch(url);
@@ -25,7 +26,6 @@ function WeatherDashboard() {
             setWeatherData(prev => [...prev, data.data[0]]);
           } catch (err) {
             setError(err.message);
-            // Continue fetching data for other cities even if one fails
           }
         }
   
@@ -65,14 +65,24 @@ function WeatherDashboard() {
           <div>
             {displayedData.map((data) => (
               <div key={data.city_name}>
+              <Link to={`/city/${data.city_name}`}>
                 <p>City: {data.city_name}</p>
-                <p>Temperature: {data.temp}°C</p>
-                <p>Weather: {data.weather.description}</p>
-              </div>
+              </Link>
+              <p>Temperature: {data.temp}°C</p>
+              <p>Weather: {data.weather.description}</p>
+            </div>
             ))}
             <p>Average Temperature: {averageTemp.toFixed(2)}°C</p>
           </div>
         )}
+        <BarChart width={600} height={300} data={weatherData}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="city_name" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Bar dataKey="temp" fill="#8884d8" />
+      </BarChart>
       </div>
     );
   }

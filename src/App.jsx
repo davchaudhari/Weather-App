@@ -1,13 +1,15 @@
-import './App.css'
-import WeatherDashboard from './weather'; // Adjust the path as necessary
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import WeatherDashboard from './weather'; 
+import CityDetail from './detail.jsx';
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <WeatherDashboard />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<WeatherDashboard />} />
+        <Route path="/city/:cityName" element={<CityDetail />} />
+      </Routes>
+    </Router>
   );
 }
 
-
-export default App
