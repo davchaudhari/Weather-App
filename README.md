@@ -17,8 +17,8 @@ The following **required** functionality is completed:
 
 The following **optional** features are implemented:
 
-- [X] The site's customized dashboard contains more content that explains what is interesting about the data
-- [ ] The site allows users to toggle between different data visualizations
+- [ ] The site's customized dashboard contains more content that explains what is interesting about the data
+- [X] The site allows users to toggle between different data visualizations
 
 The following **additional** features are implemented:
 
